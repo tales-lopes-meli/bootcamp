@@ -17,15 +17,16 @@ type Maintenance struct {
 	Price float64
 }
 
-func ProductsPrice(products []Product) float64 {
+func ProductsPrice(products []Product, c chan float64) float64 {
 	totalValue := 0.0
 	for _, product := range products {
 		totalValue += product.Price * float64(product.Amount)
 	}
+	c <- totalValue
 	return totalValue
 }
 
-func ServicesPrice(services []Service) float64 {
+func ServicesPrice(services []Service, c chan float64) float64 {
 	totalValue := 0.0
 	for _, service := range services {
 		if service.WorkedMinute < 30 {
@@ -35,13 +36,15 @@ func ServicesPrice(services []Service) float64 {
 			totalValue += service.Price * hoursWorked
 		}
 	}
+	c <- totalValue
 	return totalValue
 }
 
-func MaintenancePrice(maintenances []Maintenance) float64 {
+func MaintenancePrice(maintenances []Maintenance, c chan float64) float64 {
 	totalValue := 0.0
 	for _, maintenance := range maintenances {
 		totalValue += maintenance.Price
 	}
+	c <- totalValue
 	return float64(totalValue)
 }

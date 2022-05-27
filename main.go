@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/tales-lopes-meli/bootcamp/pkg/price"
 	"github.com/tales-lopes-meli/bootcamp/pkg/social"
 	"github.com/tales-lopes-meli/bootcamp/pkg/store"
@@ -49,4 +51,14 @@ func main() {
 	maintenance = price.Maintenance{Name: "Limpeza", Price: 120.0}
 	maintenances = append(maintenances, maintenance)
 
+	values := make(chan float64)
+
+	sumValue := 0.0
+	go price.ProductsPrice(products, values)
+	sumValue += <-values
+	go price.ServicesPrice(services, values)
+	sumValue += <-values
+	go price.MaintenancePrice(maintenances, values)
+	sumValue += <-values
+	fmt.Println(sumValue)
 }
