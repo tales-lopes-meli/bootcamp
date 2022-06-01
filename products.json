@@ -1,0 +1,34 @@
+{
+    "produtos": [
+        {
+            "id": "1000",
+            "nome": "Adidas Air",
+            "cor": "branco",
+            "preco": 125.5,
+            "estoque": 30,
+            "codigo": "SB101201",
+            "publicacao": "sim",
+            "criacao": 1653931874797
+        },
+        {
+            "id": "1001",
+            "nome": "Nike Fire",
+            "cor": "vermelho",
+            "preco": 355.5,
+            "estoque": 80,
+            "codigo": "SB101202",
+            "publicacao": "sim",
+            "criacao": 1653131874797
+        },
+        {
+            "id": "1002",
+            "nome": "Puma Pro Air",
+            "cor": "preto",
+            "preco": 925.5,
+            "estoque": 10,
+            "codigo": "SB101203",
+            "publicacao": "sim",
+            "criacao": 1651931874797
+        }
+    ]
+}
