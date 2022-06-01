@@ -24,7 +24,7 @@ type Product struct {
 	Criacao    int64   `json:"criacao"`
 }
 
-func handler(c *gin.Context) {
+func handlerParams(c *gin.Context) {
 
 	productId := c.Param("id")
 
@@ -58,10 +58,51 @@ func handler(c *gin.Context) {
 
 }
 
+func handlerQuery(c *gin.Context) {
+
+	produtos := Products{}
+	nome := c.Query("nome")
+	found := false
+
+	jsonFile, err := os.Open("products.json")
+
+	if err != nil {
+		c.JSON(500, gin.H{
+			"message": "error on open file",
+		})
+		fmt.Println(err)
+		return
+	}
+
+	byteValue, _ := ioutil.ReadAll(jsonFile)
+	var products Products
+
+	json.Unmarshal(byteValue, &products)
+
+	for i := 0; i < len(products.Produtos); i++ {
+		if products.Produtos[i].Nome == nome {
+			produtos.Produtos = append(produtos.Produtos, products.Produtos[i])
+			found = true
+		}
+	}
+
+	if found {
+		c.JSON(200, produtos.Produtos)
+	} else {
+		c.JSON(404, gin.H{
+			"message": "Product not found",
+		})
+	}
+
+	defer jsonFile.Close()
+
+}
+
 func main() {
 	router := gin.Default()
 
-	router.GET("/products/:id", handler)
+	router.GET("/products", handlerQuery)
+	router.GET("/products/:id", handlerParams)
 
 	router.Run()
 }

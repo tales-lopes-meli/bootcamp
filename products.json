@@ -29,6 +29,16 @@
             "codigo": "SB101203",
             "publicacao": "sim",
             "criacao": 1651931874797
+        },
+        {
+            "id": "1004",
+            "nome": "Nike Fire",
+            "cor": "amarelo",
+            "preco": 125.5,
+            "estoque": 180,
+            "codigo": "SB101203",
+            "publicacao": "não",
+            "criacao": 1653131814797
         }
     ]
 }
